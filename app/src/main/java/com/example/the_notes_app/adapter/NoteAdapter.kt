@@ -26,7 +26,9 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         }
 
     }
-    val differ =AsyncListDiffer(this,differCallback)
+
+    private val differ = AsyncListDiffer(this,differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
             NoteLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -34,7 +36,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-       return differ.currentList.size
+      return differ.currentList.size
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
