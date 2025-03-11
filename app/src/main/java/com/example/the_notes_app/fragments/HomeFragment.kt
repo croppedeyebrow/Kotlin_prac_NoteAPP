@@ -18,6 +18,7 @@ import com.example.notesroompractice.R
 import com.example.notesroompractice.databinding.FragmentHomeBinding
 import com.example.the_notes_app.MainActivity
 import com.example.the_notes_app.adapter.NoteAdapter
+import com.example.the_notes_app.model.Note
 import com.example.the_notes_app.viewmodel.NoteViewModel
 
 
@@ -45,6 +46,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         notesViewModel = (activity as MainActivity).noteViewModel
+        setupHomeRecyclerView()
 
         binding.addNoteFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_addNoteFragment2)
@@ -81,20 +83,41 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
 
     }
 
+    private  fun searchNote(query : String?) {
+        val searchQuery = "%$query"
+
+        notesViewModel.searchNote(searchQuery).observe(this) {list ->
+            noteAdapter.differ.submitList(list)
+        }
+    }
+
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+       return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
+        if (newText !=null) {
+            searchNote(newText)
+        }
+        return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        homeBinding = null
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        TODO("Not yet implemented")
+       menu.clear()
+        menuInflater.inflate(R.menu.home_menu, menu)
+
+        val menuSearch = menu.findItem(R.id.searchMenu).actionView as SearchView
+        menuSearch.isSubmitButtonEnabled = false
+        menuSearch.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
+       return false
     }
 
 
