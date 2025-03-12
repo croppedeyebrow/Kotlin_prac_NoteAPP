@@ -13,7 +13,7 @@
     <string name="add_note_button">Add new note</string>
     <string name="empty_notes_image">Empty notes background image</string>
     <string name="add_note">Add Note.</string>
-    <string name="enter_title">Enter the title</string>
-    <string name="enter_description">Enter the description</string>
+
+
 
 </resources>
