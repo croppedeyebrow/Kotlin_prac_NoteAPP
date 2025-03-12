@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MaterialComponents.DayNight"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.the_notes_app.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
